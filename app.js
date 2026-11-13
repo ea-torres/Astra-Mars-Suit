@@ -72,7 +72,7 @@ function tick(){
   lA=run(LB,x=>x>RULES.lacHi)>=RULES.need;hA=run(HB,x=>x>RULES.h2Hi)>=RULES.need;
   if(gA&&!pG)log("Low glucose warning · shared with the habitat, awaiting human review");
   if(lA&&!pL)log("Lactate above Alex’s 2–5 mmol/L range in one reading · shared with the habitat");
-  if(hA&&!pH)log("Unusual activity: H₂O₂ index above 150 in one reading (experimental index) · shared with the habitat");
+  if(hA&&!pH)log("Unusual activity: H₂O₂ index above 150) · shared with the habitat");
   pG=gA;pL=lA;pH=hA;
   drawVit();renderAI();
 }
@@ -93,7 +93,7 @@ function renderAI(){
   else if(m==="gluc"){c="warn";const pend=!dec||dec==="decline";
     h=`<h3>${dec==="decline"?"Treatment declined":pend?"Low glucose warning":"Treatment in progress"}</h3><p>${pend?"Glucose is below 70 mg/dL. HoloConnect AI suggests <b>glucagon</b>"+(dec==="decline"?" again. Authorize it, or use glucose gel.":". Do you authorize it?"):dec==="glucagon"?"Glucagon delivered. HoloConnect AI is watching your glucose recover.":"Glucose gel authorized. Take it from the feeding port by your chin while HoloConnect AI watches your glucose."}</p>${pend?`<div class="acts"><button data-a="glucagon">Authorize glucagon</button><button data-a="gel">Use glucose gel instead</button><button data-a="decline">Decline</button></div>`:""}<small>Alert shared with the habitat for human review.</small>`}
   else if(m==="rec"){h=`<h3>Glucose recovered</h3><p>Glucose is back in range after ${dec==="gel"?"the glucose gel":"glucagon"}. The habitat team keeps the log for review.</p>`}
-  else if(m==="info"){c="warn";h=`<h3>${lA&&hA?"Lactate and H₂O₂ alerts":lA?"Lactate above Alex’s range":"Unusual activity"}</h3><p>${lA?"Lactate stayed above 5 mmol/L (Alex’s usual: 2–5 in moderate work). ":""}${hA?"The H₂O₂ index stayed above 150 (usual 120).. ":""}Slow down and recheck.</p><div class="acts"><button data-a="doc">Call flight surgeon</button></div><small>Alerts shared with the habitat for human review.</small>`}
+  else if(m==="info"){c="warn";h=`<h3>${lA&&hA?"Lactate and H₂O₂ alerts":lA?"Lactate above Alex’s range":"Unusual activity"}</h3><p>${lA?"Lactate stayed above 5 mmol/L (Alex’s usual: 2–5 in moderate work). ":""}${hA?"The H₂O₂ index stayed above 150 (usual 120). ":""}Slow down and recheck.</p><div class="acts"><button data-a="doc">Call flight surgeon</button></div><small>Alerts shared with the habitat for human review.</small>`}
   else{h=`<h3>Alex · all readings normal</h3><p>Glucose, lactate and the H₂O₂ index are within Alex’s profile for moderate work. HoloConnect AI continues monitoring the readings.</p>`}
   al.className="pl ai "+c;if(al.dataset.h!==h){al.innerHTML=h;al.dataset.h=h}
   const cd=$("cd");if(cd)cd.textContent=cr.left;renderProt();
